@@ -22,8 +22,8 @@ The "outm" files will be where any reads that match PhiX will be located, and "o
 ## FastQC
 FastQC can be used to check quality of Illumina reads. Read more about FastQC [here](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 This step does not have a script to be run. Rather, the fastqc module was loaded from the Alabama Supercomputer and the following was typed: 
-> - fastqc F3_S480_R1.clean1.fq
-> - fastqc F3_S480_R2.clean2.fq
+> fastqc F3_S480_R1.clean1.fq
+> fastqc F3_S480_R2.clean2.fq
 
 
 
