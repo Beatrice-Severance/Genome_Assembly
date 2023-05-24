@@ -1,7 +1,7 @@
 # Genome Assembly
 
 A pipeline that encompasses general genome assembly steps, starting from raw Illumina reads.
-The scripts in this pipeline were originally run on the [Alabama Supercomputer](https://www.asc.edu/) and thus might make reproducibility difficult for users who do not utilize this system. The Alabama Supercomputer utilizes a slurm queue system where jobs are submitted and run. Keep in mind that the paths used in this pipeline may need to be added/changed depending on the user's needs.
+The scripts in this pipeline were originally run on the [Alabama Supercomputer](https://www.asc.edu/)(ASC) and thus might make reproducibility difficult for users who do not utilize this system. The ASC utilizes a slurm queue system where jobs are submitted and run. Keep in mind that the paths used in this pipeline may need to be added/changed depending on the user's needs.
 Scripts from this pipeline are grouped in a folder. The sequence that will be used in this example is a yeast genome, likely from the Dothideomycetes class.
 
 BBDuk is a program that can be used to process Illumina reads before genome assembly is performed. Read more about BBDuk [here](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/).
@@ -21,26 +21,44 @@ The "outm" files will be where any reads that match PhiX will be located, and "o
 
 ## FastQC
 FastQC can be used to check quality of Illumina reads. Read more about FastQC [here](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
-This step does not have a script to be run. Rather, the fastqc module was loaded from the Alabama Supercomputer and the following were typed:
+This step does not have a script to be run. Rather, the fastqc module was loaded from the ASC and the following were typed:
 
 ```
 fastqc F3_S480_R1.clean1.fq
 fastqc F3_S480_R2.clean2.fq
 ```
 
-The output of these lines will give HTML files that can be visualized in a browser and will give quality statistics. If users are happy with this information, then they may continue with genome assembly. If not, then previous steps can be amended to trim the reads further to achieve better quality.
+The output of these lines will give HTML files that can be visualized in a browser and will give quality statistics. If users are satisfied with this information, then they may continue with genome assembly. If not, then previous steps can be amended to trim the reads further to achieve better quality.
 
 ## Genome Assembly with SPAdes
-As mentioned above, SPAdes is a program that can be used to perform genome assembly. The following [script](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh) is used to achieve assembly. 
+As mentioned above, SPAdes is a program that can be used to perform genome assembly. The following [script](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh) is used to achieve assembly. K values are specified, forward and reverse reads are used as input, and the output file is labeled "F3_spades" in this case. The output folder provides a file called "contigs.fasta", which will contain the assembled genome.
 
 ## Run QUAST for Assembly Statistics
+QUAST is a tool that is used to check the quality of an assembled genome. Read more about QUAST [here](https://github.com/ablab/quast). This step does not contain a script either, as the following is all that is necessary to run an assessment in the ASC:
 
+```
+module load quast/4.6.3
+quast.py contigs.fasta
+```
+
+The "contigs.fasta" file is used as input for the command, and the output is a text file that can be viewed for general statistics of the assembly, like N50, number of contigs, etc.
 
 ## Comparison
-
+If users have an idea of a similar fungal genome size they want to compare QUAST statistics to, then they can go to the [Joint Genome Institute](https://mycocosm.jgi.doe.gov/mycocosm/home)(JGI). If genome sizes are comparable, then it strengthens the reliability of the assembly.
 
 ## BUSCO Scores
+BUSCO is a tool that is used to assess the genome assembly and give an idea of annotation completeness, utilizing single-copy genes. Read more about BUSCO [here](https://busco.ezlab.org/).
 
+BUSCO was run on the "contigs.fasta" file, with both the [general fungi database](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/augustus.sh), and also the [Dothideomycetes database](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/augustus_dothideo.sh). To run this properly on the ASC, an Augustus directory has to be created using the lines below:
+
+```
+mkdir augustus
+cd augustus
+cp -r /opt/asn/apps/anaconda_3-4.2.0_cent/pkgs/augustus-3.2.3-boost1.60_0/config .
+```
+
+If this step is performed correctly, then the above scripts should run properly and give directories that provide single-copy genes that can be used for further downstream analysis.
 
 ## Future Steps
-
+AntiSMASH
+BLAST
