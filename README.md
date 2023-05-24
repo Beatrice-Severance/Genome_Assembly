@@ -21,15 +21,17 @@ The "outm" files will be where any reads that match PhiX will be located, and "o
 
 ## FastQC
 FastQC can be used to check quality of Illumina reads. Read more about FastQC [here](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
-This step does not have a script to be run. Rather, the fastqc module was loaded from the Alabama Supercomputer and the following was typed: 
-> fastqc F3_S480_R1.clean1.fq
+This step does not have a script to be run. Rather, the fastqc module was loaded from the Alabama Supercomputer and the following were typed:
 
-> fastqc F3_S480_R2.clean2.fq
+```
+fastqc F3_S480_R1.clean1.fq
+fastqc F3_S480_R2.clean2.fq
+```
 
-
+The output of these lines will give HTML files that can be visualized in a browser and will give quality statistics. If users are happy with this information, then they may continue with genome assembly. If not, then previous steps can be amended to trim the reads further to achieve better quality.
 
 ## Genome Assembly with SPAdes
-
+As mentioned above, SPAdes is a program that can be used to perform genome assembly. The following [script](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh) is used to achieve assembly. 
 
 ## Run QUAST for Assembly Statistics
 
