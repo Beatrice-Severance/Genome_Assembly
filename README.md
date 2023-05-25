@@ -60,5 +60,13 @@ cp -r /opt/asn/apps/anaconda_3-4.2.0_cent/pkgs/augustus-3.2.3-boost1.60_0/config
 If this step is performed correctly, then the above scripts should run properly and give directories that provide single-copy genes that can be used for further downstream analysis.
 
 ## Future Steps
-AntiSMASH
-BLAST
+
+### AntiSMASH
+AntiSMASH is a tool used to find potential antibiotic and secondary metabolite properties from a genome. Read more about AntiSMASH [here](https://github.com/antismash/antismash).
+
+For this pipeline, [fungal AntiSMASH](https://fungismash.secondarymetabolites.org/#!/start) was used because the genome of interest was a yeast. Users can upload data from their computer or from NCBI. For the purpose of this pipeline, the "contigs.fasta" file was used. An email can be provided before running AntiSMASH to get a notification when it has finished running.
+
+The output for AntiSMASH is an HTML file that visualizes nodes where secondary metabolite regions are predicted. This information can be utilized however the user desires, and can be useful for future steps to take on genome analysis.
+
+### BLAST
+[BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) is a tool that can be used to find sequence similarity in local regions. If there are potential genes of interest discovered by AntiSMASH, then these can be run in BLAST to see if there are similar sequences in the NCBI database. This is another direction users can take to get more out of their genome assembly.
