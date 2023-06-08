@@ -1,7 +1,7 @@
 # Genome Assembly
 
 A pipeline that encompasses general genome assembly steps, starting from raw Illumina reads.
-The scripts in this pipeline were originally run on the [Alabama Supercomputer](https://www.asc.edu/)(ASC) and thus might make reproducibility difficult for users who do not utilize this system. The ASC utilizes a slurm queue system where jobs are submitted and run. Keep in mind that the paths used in this pipeline may need to be added/changed depending on the user's needs.
+The scripts in this pipeline were originally run on the [Alabama Supercomputer](https://www.asc.edu/) (ASC) and thus might make reproducibility difficult for users who do not utilize this system. The ASC utilizes a slurm queue system where jobs are submitted and run. Keep in mind that the paths used in this pipeline may need to be added/changed depending on the user's needs.
 Scripts from this pipeline are grouped in a folder. The sequence that will be used in this example is a yeast genome, likely from the Dothideomycetes class.
 
 BBDuk is a program that can be used to process Illumina reads before genome assembly is performed. Read more about BBDuk [here](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/).
@@ -30,7 +30,7 @@ fastqc F3_S480_R2.clean2.fq
 
 The output of these lines will give HTML files that can be visualized in a browser and will give quality statistics. If users are satisfied with this information, then they may continue with genome assembly. If not, then previous steps can be amended to trim the reads further to achieve better quality.
 
-## Genome Assembly with SPAdes
+## Genome Assembly with [SPAdes](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh)
 As mentioned above, SPAdes is a program that can be used to perform genome assembly. The following [script](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh) is used to achieve assembly. K values are specified, forward and reverse reads are used as input, and the output file is labeled "F3_spades" in this case. The output folder provides a file called "contigs.fasta", which will contain the assembled genome.
 
 ## Run QUAST for Assembly Statistics
