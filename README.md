@@ -1,4 +1,4 @@
-# Genome Assembly
+# Genome Assembly and Annotation
 
 A pipeline that encompasses general genome assembly steps, starting from raw Illumina reads.
 The scripts in this pipeline were originally run on the [Alabama Supercomputer](https://www.asc.edu/) (ASC) and thus might make reproducibility difficult for users who do not utilize this system. The ASC utilizes a slurm queue system where jobs are submitted and run. Keep in mind that the paths used in this pipeline may need to be added/changed depending on the user's needs.
