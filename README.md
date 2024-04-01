@@ -33,6 +33,9 @@ The output of these lines will give HTML files that can be visualized in a brows
 ## Genome Assembly with [SPAdes](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh)
 As mentioned above, SPAdes is a program that can be used to perform genome assembly. The following [script](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh) is used to achieve assembly. K values are specified, forward and reverse reads are used as input, and the output file is labeled "F3_spades" in this case. The output folder provides a file called "contigs.fasta", which will contain the assembled genome.
 
+## Decontaminating your Assembly
+The program [FCS-GX](https://github.com/ncbi/fcs/wiki/FCS-GX) is used to detect contamination from foreign organisms using the genome cross-species aligner (GX). The following script was run in order to remove contamination from EMM_F3, using Dothideomycetes as a reference (tax_id: 147541). A decontaminated assembly is the output, and can be used for gene prediction, annotation, and comparison without as much potential for off-target or false positive hits.
+
 ## Run QUAST for Assembly Statistics
 QUAST is a tool that is used to check the quality of an assembled genome. Read more about QUAST [here](https://github.com/ablab/quast). This step does not contain a script either, as the following is all that is necessary to run an assessment in the ASC:
 
@@ -43,7 +46,7 @@ quast.py contigs.fasta
 
 The "contigs.fasta" file is used as input for the command, and the output is a text file that can be viewed for general statistics of the assembly, like N50, number of contigs, etc.
 
-## Comparison
+## Assembly Size Comparison
 If users have an idea of a similar fungal genome size they want to compare QUAST statistics to, then they can go to the [Joint Genome Institute](https://mycocosm.jgi.doe.gov/mycocosm/home)(JGI). If genome sizes are comparable, then it strengthens the reliability of the assembly.
 
 ## BUSCO Scores
@@ -59,7 +62,27 @@ cp -r /opt/asn/apps/anaconda_3-4.2.0_cent/pkgs/augustus-3.2.3-boost1.60_0/config
 
 If this step is performed correctly, then the above scripts should run properly and give directories that provide single-copy genes that can be used for further downstream analysis.
 
-## Future Steps
+# Comparative Genomics
+Now that a genome has been assembled and decontaminated, comparative genomics can be run on EMM_F3. This involves a series of steps, taken mostly from the [funannotate](https://github.com/nextgenusfs/funannotate) pipeline.
+
+For EMM_F3, the assembly must first be cleaned for repetitive contigs (funannotate clean), FASTA headers replaced (funannotate sort), and then softmasked (funannotate mask). Once these steps are performed, gene prediction can be performed.
+
+## Gene Prediction
+Gene prediction using funannotate takes the masked FASTA file as input. An output directory can be specified, and the isolate can be named.
+
+## Functional Annotation
+Gene annotation can be performed using funannotate. There are a couple programs that must be run separately on the Alabama Supercomputer in order for funannotate to recognize them for annotation. These two programs are [InterProScan5](https://github.com/ebi-pf-team/interproscan) and [EggNOG-Mapper](https://github.com/eggnogdb/eggnog-mapper).
+
+### InterProScan5
+InterPro is a database that gives an overview of families that a protein belongs to and the domains and sites it contains. By running this, funannotate compare can provide a more thorough output file for EMM_F3.
+
+### EggNOG-Mapper
+EggNOG-Mapper provides quick functional annotation of novel sequences, using orthologous groups and phylogenies from the eggNOG database. By running this, funannotate compare can provide a more thorough output file for EMM_F3.
+
+## Funannotate compare
+Funannotate compare can take information from multiple genome annotations and combine them together in order to provide comparative genomics results, including a RAxML tree. 24 genomes were compared against EMM_F3, taken from the Joint Genome Institute (JGI). The masked genome assemblies were downloaded from JGI, and then processed using the 'funannotate annotate' function. These output folders were used for comparative genomics, and the RAxML tree took approximately two weeks to complete.
+
+## Additional Steps
 
 ### AntiSMASH
 AntiSMASH is a tool used to find potential antibiotic and secondary metabolite properties from a genome. Read more about AntiSMASH [here](https://github.com/antismash/antismash).
@@ -70,3 +93,6 @@ The output for AntiSMASH is an HTML file that visualizes nodes where secondary m
 
 ### BLAST
 [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi) is a tool that can be used to find sequence similarity in local regions. If there are potential genes of interest discovered by AntiSMASH, then these can be run in BLAST to see if there are similar sequences in the NCBI database. This is another direction users can take to get more out of their genome assembly.
+
+### Interactive Tree of Life (iTOL)
+[iTOL](https://itol.embl.de/) can be used in order to edit the RAxML tree file that 'funannotate compare' provides as an output. This can be used to make the phylogenetic tree look nice for publications.
