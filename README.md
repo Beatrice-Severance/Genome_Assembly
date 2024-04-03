@@ -36,15 +36,19 @@ As mentioned above, SPAdes is a program that can be used to perform genome assem
 ## Decontaminating your Assembly
 The program [FCS-GX](https://github.com/ncbi/fcs/wiki/FCS-GX) is used to detect contamination from foreign organisms using the genome cross-species aligner (GX). The following script was run in order to remove contamination from EMM_F3, using Dothideomycetes as a reference (tax_id: 147541). A decontaminated assembly is the output, and can be used for gene prediction, annotation, and comparison without as much potential for off-target or false positive hits.
 
+For EMM_F3, common bacterial contaminants fell under multiple genus clades, including Stenotrophomonas, Cupriavidus, and Acinetobacter. Bacillus and Pythium contaminants were found to a smaller extent, but all of these were removed and the clean assembly used from there.
+
 ## Run QUAST for Assembly Statistics
 QUAST is a tool that is used to check the quality of an assembled genome. Read more about QUAST [here](https://github.com/ablab/quast). This step does not contain a script either, as the following is all that is necessary to run an assessment in the ASC:
 
 ```
-module load quast/4.6.3
+module load quast/5.2.0
 quast.py contigs.fasta
 ```
 
 The "contigs.fasta" file is used as input for the command, and the output is a text file that can be viewed for general statistics of the assembly, like N50, number of contigs, etc.
+
+A QUAST analysis of EMM_F3's assembly includes 123 contigs with a GC content of 54.39%, an N50 of 334563, and an L50 of 23.
 
 ## Assembly Size Comparison
 If users have an idea of a similar fungal genome size they want to compare QUAST statistics to, then they can go to the [Joint Genome Institute](https://mycocosm.jgi.doe.gov/mycocosm/home)(JGI). If genome sizes are comparable, then it strengthens the reliability of the assembly.
