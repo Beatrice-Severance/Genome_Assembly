@@ -34,7 +34,7 @@ The output of these lines will give HTML files that can be visualized in a brows
 As mentioned above, SPAdes is a program that can be used to perform genome assembly. The following [script](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/spades.sh) is used to achieve assembly. K values are specified, forward and reverse reads are used as input, and the output file is labeled "F3_spades" in this case. The output folder provides a file called "contigs.fasta", which will contain the assembled genome.
 
 ## Decontaminating your Assembly
-The program [FCS-GX](https://github.com/ncbi/fcs/wiki/FCS-GX) is used to detect contamination from foreign organisms using the genome cross-species aligner (GX). The following script was run in order to remove contamination from EMM_F3, using Dothideomycetes as a reference (tax_id: 147541). A decontaminated assembly is the output, and can be used for gene prediction, annotation, and comparison without as much potential for off-target or false positive hits.
+The program [FCS-GX](https://github.com/ncbi/fcs/wiki/FCS-GX) is used to detect contamination from foreign organisms using the genome cross-species aligner (GX). The following [script](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/fcsgx.sh) was run in order to remove contamination from EMM_F3, using Dothideomycetes as a reference (tax_id: 147541). A decontaminated assembly is the output, and can be used for gene prediction, annotation, and comparison without as much potential for off-target or false positive hits.
 
 For EMM_F3, common bacterial contaminants fell under multiple genus clades, including Stenotrophomonas, Cupriavidus, and Acinetobacter. Bacillus and Pythium contaminants were found to a smaller extent, but all of these were removed and the clean assembly used from there.
 
@@ -71,10 +71,10 @@ Now that a genome has been assembled and decontaminated, comparative genomics ca
 
 For EMM_F3, the assembly must first be cleaned for repetitive contigs (funannotate clean), FASTA headers replaced (funannotate sort), and then softmasked (funannotate mask). Once these steps are performed, gene prediction can be performed.
 
-## Gene Prediction
+## [Gene Prediction](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/funpredict.sh)
 Gene prediction using funannotate takes the masked FASTA file as input. An output directory can be specified, and the isolate can be named.
 
-## Functional Annotation
+## [Functional Annotation](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/annotationF3.sh)
 Gene annotation can be performed using funannotate. There are a couple programs that must be run separately on the Alabama Supercomputer in order for funannotate to recognize them for annotation. These two programs are [InterProScan5](https://github.com/ebi-pf-team/interproscan) and [EggNOG-Mapper](https://github.com/eggnogdb/eggnog-mapper).
 
 ### InterProScan5
@@ -83,7 +83,7 @@ InterPro is a database that gives an overview of families that a protein belongs
 ### EggNOG-Mapper
 EggNOG-Mapper provides quick functional annotation of novel sequences, using orthologous groups and phylogenies from the eggNOG database. By running this, funannotate compare can provide a more thorough output file for EMM_F3.
 
-## Funannotate compare
+## [Funannotate compare](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/funcompare.sh)
 Funannotate compare can take information from multiple genome annotations and combine them together in order to provide comparative genomics results, including a RAxML tree. 24 genomes were compared against EMM_F3, taken from the Joint Genome Institute (JGI). The masked genome assemblies were downloaded from JGI, and then processed using the 'funannotate annotate' function. These output folders were used for comparative genomics, and the RAxML tree took approximately two weeks to complete.
 
 ## Additional Steps
