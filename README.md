@@ -5,7 +5,7 @@ The scripts in this pipeline were originally run on the [Alabama Supercomputer](
 Scripts from this pipeline are grouped in a [folder](https://github.com/Beatrice-Severance/Genome_Assembly/tree/main/Scripts). The sequence that will be used in this example is the yeast EMM_F3, likely from the Dothideomycetes class.
 
 ## Programs and version numbers used in this pipeline:
-- BBDuk
+- BBDuk *v 39.06* (BBTools)
   - BBDuk is a program that can be used to process Illumina reads before genome assembly is performed. Read more about BBDuk [here](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbduk-guide/).
 - FastQC *v 0.10.1*
   - FastQC can be used to check quality of Illumina reads. Read more about FastQC [here](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
