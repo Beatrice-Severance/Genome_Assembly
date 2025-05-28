@@ -1,4 +1,4 @@
-# Genome Assembly and Annotation
+# Genome Assembly and Annotation for Novel Yeast EMM_F3
 
 A pipeline that encompasses general genome assembly steps, starting from raw Illumina reads.
 The scripts in this pipeline were originally run on the [Alabama Supercomputer](https://www.asc.edu/) (ASC) and thus might make reproducibility difficult for users who do not utilize this system. The ASC utilizes a slurm queue system where jobs are submitted and run. Keep in mind that the paths used in this pipeline may need to be added/changed depending on the user's needs.
@@ -23,6 +23,8 @@ Scripts from this pipeline are grouped in a [folder](https://github.com/Beatrice
   - Funannotate can incorporate annotation information from InterProScan in its analysis. Learn more about [InterProScan5](https://github.com/ebi-pf-team/interproscan)
 - EggNOG-Mapper *v 2.1.7*
   - Funannotate can incorporate annotation information from EggNOG-Mapper in its analysis. Learn more about [EggNOG-Mapper](https://github.com/eggnogdb/eggnog-mapper)
+  
+## Output: The assembled genome for EMM_F3 is located [here](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Output/EMM_F3_clean.fasta). Associated genome annotations are located [here](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Output/EMM_F3.sqn). These files have been uploaded to NCBI under the accession number TBD.
 
 ## Step 1: [Adapter Removal](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/adapter_removal/01-adapter.sh)
 This step contains a script that utilizes BBDuk to remove adapters that may be present from Illumina sequencing. For the purpose of the yeast genome, the [adapter.fa](https://github.com/Beatrice-Severance/Genome_Assembly/blob/main/Scripts/adapter_removal/adapter.fa) file is used as a reference to ensure that nothing is missed. The raw reads are used as the input, and the output files are named "clean1.fq" for forward reads and "clean2.fq" for reverse reads so that the user can keep track of processed reads.
